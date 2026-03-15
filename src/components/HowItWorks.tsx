@@ -46,9 +46,10 @@ export default function HowItWorks() {
     const cardWidth = (containerWidth - 2 * gap) / 3;
     const oneSlot = cardWidth + gap;
 
-    gsap.set(cards[0], { x: oneSlot, opacity: 1 });
-    gsap.set(cards[1], { x: containerWidth, opacity: 0 });
-    gsap.set(cards[2], { x: containerWidth, opacity: 0 });
+    // All cards start hidden off to the right
+    gsap.set(cards[0], { x: oneSlot * 2, opacity: 0 });
+    gsap.set(cards[1], { x: oneSlot * 2, opacity: 0 });
+    gsap.set(cards[2], { x: oneSlot * 2, opacity: 0 });
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -59,10 +60,31 @@ export default function HowItWorks() {
       },
     });
 
-    tl.to(cards[0], { x: 0, ease: "power2.out", duration: 0.4 }, 0)
-      .to(cards[1], { x: 0, opacity: 1, ease: "power2.out", duration: 0.4 }, 0.1);
+    // Each card gets equal share of scroll
+    // Duration 1 = one third of scroll
+    // Card 1: scroll 0%–33%
+    tl.to(cards[0], {
+      x: 0,
+      opacity: 1,
+      ease: "power2.out",
+      duration: 1,
+    }, 0);
 
-    tl.to(cards[2], { x: 0, opacity: 1, ease: "power2.out", duration: 0.3 }, 0.5);
+    // Card 2: scroll 33%–66%
+    tl.to(cards[1], {
+      x: 0,
+      opacity: 1,
+      ease: "power2.out",
+      duration: 1,
+    }, 1);
+
+    // Card 3: scroll 66%–100%
+    tl.to(cards[2], {
+      x: 0,
+      opacity: 1,
+      ease: "power2.out",
+      duration: 1,
+    }, 2);
 
     return () => {
       tl.kill();
@@ -79,7 +101,7 @@ export default function HowItWorks() {
   return (
     <div
       ref={wrapperRef}
-      style={{ height: "400vh" }}
+      style={{ height: "300vh" }}
       className="dashed-grid"
     >
       <div
@@ -177,7 +199,6 @@ export default function HowItWorks() {
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );

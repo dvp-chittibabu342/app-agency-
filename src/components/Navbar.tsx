@@ -5,9 +5,19 @@ export default function Navbar() {
       <div className="w-[1200px] flex items-center justify-between">
 
         {/* Logo */}
-        <div className="text-xl font-bold text-blue-600">
-          APSLOCK
-        </div>
+<img
+  src="/logon.png"
+  alt="APSLOCK"
+  style={{
+    height: "65px",
+    width: "auto",
+    background: "#ffffff",
+    borderRadius: "999px",
+    padding: "0px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+    border: "1px solid #e5e7eb",
+  }}
+/>
 
         {/* Center Floating Menu */}
         <nav className="hidden md:flex items-center gap-8 bg-white border border-gray-200 rounded-full px-8 py-3 shadow-md">

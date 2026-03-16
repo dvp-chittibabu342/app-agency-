@@ -46,7 +46,6 @@ export default function HowItWorks() {
     const cardWidth = (containerWidth - 2 * gap) / 3;
     const oneSlot = cardWidth + gap;
 
-    // All cards start hidden off to the right
     gsap.set(cards[0], { x: oneSlot * 2, opacity: 0 });
     gsap.set(cards[1], { x: oneSlot * 2, opacity: 0 });
     gsap.set(cards[2], { x: oneSlot * 2, opacity: 0 });
@@ -60,31 +59,9 @@ export default function HowItWorks() {
       },
     });
 
-    // Each card gets equal share of scroll
-    // Duration 1 = one third of scroll
-    // Card 1: scroll 0%–33%
-    tl.to(cards[0], {
-      x: 0,
-      opacity: 1,
-      ease: "power2.out",
-      duration: 1,
-    }, 0);
-
-    // Card 2: scroll 33%–66%
-    tl.to(cards[1], {
-      x: 0,
-      opacity: 1,
-      ease: "power2.out",
-      duration: 1,
-    }, 1);
-
-    // Card 3: scroll 66%–100%
-    tl.to(cards[2], {
-      x: 0,
-      opacity: 1,
-      ease: "power2.out",
-      duration: 1,
-    }, 2);
+    tl.to(cards[0], { x: 0, opacity: 1, ease: "power2.out", duration: 1 }, 0);
+    tl.to(cards[1], { x: 0, opacity: 1, ease: "power2.out", duration: 1 }, 1);
+    tl.to(cards[2], { x: 0, opacity: 1, ease: "power2.out", duration: 1 }, 2);
 
     return () => {
       tl.kill();
@@ -98,27 +75,19 @@ export default function HowItWorks() {
     { ref: card2, step: steps[2] },
   ];
 
+  const bgStyle = {
+    background: "#edf0f8",
+    backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.13) 1px, transparent 1px)",
+    backgroundSize: "28px 28px",
+  };
+
   return (
-    <div
-      ref={wrapperRef}
-      style={{ height: "300vh" }}
-      className="dashed-grid"
-    >
-      <div
-        style={{
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          overflow: "hidden",
-        }}
-        className="dashed-grid"
-      >
+    <div ref={wrapperRef} style={{ height: "300vh", ...bgStyle }}>
+      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", ...bgStyle }}>
+
         {/* Heading */}
         <div className="absolute top-10 left-0 w-full flex flex-col items-center z-10 pointer-events-none">
-          <p
-            className="text-xs font-bold uppercase tracking-widest mb-2"
-            style={{ color: "#2563EB" }}
-          >
+          <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#2563EB" }}>
             Our Process
           </p>
           <h2 className="text-4xl font-bold" style={{ color: "#0F172A" }}>
@@ -128,10 +97,7 @@ export default function HowItWorks() {
 
         {/* Cards */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div
-            ref={containerRef}
-            className="grid grid-cols-3 gap-6 w-full max-w-6xl px-8"
-          >
+          <div ref={containerRef} className="grid grid-cols-3 gap-6 w-full max-w-6xl px-8">
             {cardData.map(({ ref, step }) => (
               <div
                 key={step.number}
@@ -148,10 +114,7 @@ export default function HowItWorks() {
                 {/* Watermark */}
                 <span
                   className="absolute -right-1 -bottom-3 font-black leading-none select-none pointer-events-none"
-                  style={{
-                    fontSize: "clamp(5rem, 8vw, 8rem)",
-                    color: "rgba(37,99,235,0.05)",
-                  }}
+                  style={{ fontSize: "clamp(5rem, 8vw, 8rem)", color: "rgba(37,99,235,0.05)" }}
                 >
                   {step.number}
                 </span>
@@ -164,26 +127,17 @@ export default function HowItWorks() {
                   >
                     Step {step.number}
                   </div>
-                  <span
-                    className="text-5xl font-black leading-none"
-                    style={{ color: "#DBEAFE" }}
-                  >
+                  <span className="text-5xl font-black leading-none" style={{ color: "#DBEAFE" }}>
                     {step.number}
                   </span>
                 </div>
 
                 {/* Content */}
                 <div>
-                  <h3
-                    className="text-xl font-bold mb-3"
-                    style={{ color: "#0F172A" }}
-                  >
+                  <h3 className="text-xl font-bold mb-3" style={{ color: "#0F172A" }}>
                     {step.title}
                   </h3>
-                  <p
-                    className="text-sm leading-relaxed"
-                    style={{ color: "#64748B" }}
-                  >
+                  <p className="text-sm leading-relaxed" style={{ color: "#64748B" }}>
                     {step.description}
                   </p>
                 </div>
@@ -191,9 +145,7 @@ export default function HowItWorks() {
                 {/* Bottom Line */}
                 <div
                   className="h-[2px] w-full rounded-full"
-                  style={{
-                    background: "linear-gradient(to right, #2563EB, #93C5FD)",
-                  }}
+                  style={{ background: "linear-gradient(to right, #2563EB, #93C5FD)" }}
                 />
               </div>
             ))}
